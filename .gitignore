@@ -1,0 +1,7 @@
+# never commit medical PDFs or extracted patient images
+*.pdf
+extracted/
+
+node_modules/
+venv/
+.DS_Store
