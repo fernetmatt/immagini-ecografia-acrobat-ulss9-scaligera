@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩻</text></svg>">
+<title>Immagini Ecografia Regione Veneto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --ground: #0b0f14;
+    --panel: #121924;
+    --panel-2: #0e141d;
+    --line: #22303e;
+    --ink: #d5dee6;
+    --dim: #7c8b99;
+    --cyan: #5bc9d6;
+    --cyan-dim: #2e6f78;
+    --amber: #d9a55c;
+    --black: #05070a;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--ground); }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+  a { color: var(--cyan); }
+
+  header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 1.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .brand {
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+  }
+  .brand .glyph {
+    color: var(--cyan);
+    font-family: var(--mono);
+    margin-right: 0.5rem;
+  }
+  .tagline {
+    color: var(--dim);
+    font-size: 0.82rem;
+    font-family: var(--mono);
+  }
+
+  main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 4rem;
+  }
+
+  /* ---- intake ---- */
+  #dropzone {
+    border: 1px dashed var(--cyan-dim);
+    border-radius: 6px;
+    background: var(--panel-2);
+    padding: 2.6rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  #dropzone:hover, #dropzone:focus-visible, #dropzone.drag {
+    border-color: var(--cyan);
+    background: #101825;
+    outline: none;
+  }
+  #dropzone .dz-main { font-weight: 500; }
+  #dropzone .dz-sub {
+    color: var(--dim);
+    font-size: 0.85rem;
+    margin-top: 0.35rem;
+  }
+  #dropzone .dz-priv {
+    color: var(--dim);
+    font-size: 0.78rem;
+    font-family: var(--mono);
+    margin-top: 1rem;
+  }
+  #dropzone .dz-priv b { color: var(--cyan); font-weight: 500; }
+
+  #status {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--dim);
+    min-height: 1.4rem;
+    margin: 0.8rem 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #status.busy::before {
+    content: "";
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--cyan);
+    margin-right: 0.55rem;
+    animation: pulse 1s infinite alternate;
+    vertical-align: baseline;
+  }
+  @keyframes pulse { from { opacity: 0.25; } to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    #status.busy::before { animation: none; }
+  }
+
+  #summarybar {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 0.4rem 0 1.2rem;
+    padding: 0.65rem 0.9rem;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+  #summarybar.show { display: flex; }
+  #summary { font-family: var(--mono); font-size: 0.85rem; color: var(--ink); }
+
+  button {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ground);
+    background: var(--cyan);
+    border: none;
+    border-radius: 4px;
+    padding: 0.42rem 0.9rem;
+    cursor: pointer;
+  }
+  button:hover { filter: brightness(1.12); }
+  button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  button:disabled { opacity: 0.45; cursor: default; }
+  button.ghost {
+    background: transparent;
+    color: var(--cyan);
+    border: 1px solid var(--cyan-dim);
+  }
+  input[type="password"], input[type="text"] {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--ink);
+    background: var(--black);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 0.4rem 0.6rem;
+  }
+  input:focus-visible { outline: none; border-color: var(--cyan); }
+
+  /* ---- sources ---- */
+  .source { margin-bottom: 2rem; }
+  .source-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    padding: 0.4rem 0.2rem;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 0.9rem;
+  }
+  .source-name { font-weight: 600; font-size: 0.95rem; overflow-wrap: anywhere; }
+  .source-meta { font-family: var(--mono); font-size: 0.78rem; color: var(--dim); }
+  .source-note {
+    font-size: 0.85rem;
+    color: var(--amber);
+    margin: 0.3rem 0 0.6rem;
+  }
+  .pwd-row { display: flex; gap: 0.5rem; margin: 0.5rem 0 0.8rem; flex-wrap: wrap; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 0.9rem;
+  }
+  .tile {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .thumb {
+    background: var(--black);
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-in;
+    border: none;
+    padding: 0;
+    width: 100%;
+  }
+  .thumb:hover { filter: brightness(1.15); }
+  .thumb img { max-width: 100%; max-height: 100%; display: block; }
+  .thumb .noview { color: var(--dim); font-family: var(--mono); font-size: 0.75rem; }
+  .tile-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.5rem 0.6rem;
+  }
+  .tile-data {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--dim);
+    line-height: 1.35;
+    min-width: 0;
+  }
+  .tile-data .fname { color: var(--ink); overflow-wrap: anywhere; }
+  .badge {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    border: 1px solid var(--line);
+    color: var(--dim);
+  }
+  .badge.xfa { border-color: var(--cyan-dim); color: var(--cyan); }
+  .badge.file { border-color: #6e5530; color: var(--amber); }
+  .tile-save {
+    padding: 0.28rem 0.6rem;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  /* ---- modal ---- */
+  #modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(3, 5, 8, 0.92);
+    z-index: 10;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 1.5rem;
+  }
+  #modal.show { display: flex; }
+  #modal img {
+    max-width: 92vw;
+    max-height: 80vh;
+    background: var(--black);
+    border: 1px solid var(--line);
+  }
+  #modal .modal-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--dim);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand"><span class="glyph">◧</span>Immagini Ecografia Regione Veneto</div>
+  <div class="tagline">referti PDF Acrobat (XFA)</div>
+</header>
+
+<main>
+  <div id="dropzone" role="button" tabindex="0" aria-label="Select PDF files">
+    <div class="dz-main">Drop PDF files here, or click to select them.</div>
+    <div class="dz-sub">The tool finds page images, XFA form images, and images in attached files.</div>
+    <div class="dz-priv"><b>local only</b> — the tool runs in your browser. Your files stay on your computer.</div>
+  </div>
+  <input type="file" id="fileinput" accept=".pdf,application/pdf" multiple class="visually-hidden">
+
+  <div id="status" role="status"></div>
+
+  <div id="summarybar">
+    <div id="summary"></div>
+    <button id="saveall">Save all images</button>
+  </div>
+
+  <div id="sources"></div>
+</main>
+
+<div id="modal" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <img id="modal-img" alt="">
+  <div class="modal-bar">
+    <span id="modal-meta"></span>
+    <button id="modal-save">Save image</button>
+    <button class="ghost" id="modal-close">Close</button>
+  </div>
+</div>
+<script src="core.js"></script>
+<script src="vendor/pdf.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -24,7 +24,14 @@ Open the web page, drop the PDF, and the tool shows every embedded image. You ca
 
 ## Use
 
-Open `lightbox.html` in a browser (double-click works — no server is needed). Then drop your referto PDF on the page.
+Open **https://fernetmatt.github.io/immagini-ecografia-acrobat-ulss9-scaligera/** and drop your referto PDF on the page.
+
+Offline option: download `lightbox.html` (one self-contained file) and double-click it — no server, no internet connection needed.
+
+## Development
+
+- `index.html` + `app.js` + `core.js` + `vendor/` are the source; GitHub Pages serves them directly.
+- `node build.mjs` regenerates `lightbox.html`, the single-file offline build.
 
 ## Details (technical)
 
