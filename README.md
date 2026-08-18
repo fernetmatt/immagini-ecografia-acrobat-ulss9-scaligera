@@ -2,43 +2,43 @@
 
 # Immagini Ecografia Regione Veneto
 
-Estrai le immagini ecografiche dal referto PDF della Regione Veneto (ULSS 9 Scaligera), direttamente nel browser.
+Estrai le immagini ecografiche dai referti PDF della Regione Veneto (ULSS 9 Scaligera), direttamente nel browser.
 
 ## Il problema
 
-Il referto PDF si apre solo con Adobe Acrobat. Negli altri lettori PDF vedi una sola pagina con un messaggio di attesa. Le immagini non sono nelle pagine. Il PDF è un modulo Adobe XFA cifrato. Le immagini sono dati base64 dentro il modulo. Gli strumenti comuni di estrazione non trovano niente.
+I referti ecografici distribuiti dalla Regione Veneto si aprono correttamente solo con Adobe Acrobat: qualsiasi altro lettore mostra una pagina vuota con un messaggio di attesa. Il motivo è che non si tratta di normali PDF, ma di moduli Adobe XFA cifrati, in cui le immagini ecografiche non compaiono su nessuna pagina: sono codificate in base64 all'interno dei dati del modulo. Per questo i comuni strumenti di estrazione immagini non trovano nulla.
 
-## Che cosa fa questo strumento
+## Cosa fa questo strumento
 
-Apri la pagina web e trascina il PDF. Lo strumento mostra tutte le immagini incorporate. Puoi vedere ogni immagine a schermo intero. Puoi salvare ogni immagine come file JPEG o PNG normale.
+Apri la pagina, trascina il referto PDF e lo strumento tira fuori tutte le immagini incorporate: puoi visualizzarle a schermo intero e salvarle come normali file JPEG o PNG.
 
-- **Privato per costruzione.** Lo strumento è una pagina web statica. I tuoi file restano nel browser. Non c'è upload, non c'è un server, non c'è tracciamento.
-- Lo strumento decifra il PDF nel browser (AES-128, password vuota standard).
-- Lo strumento trova le immagini in tre livelli:
-  - le immagini disegnate sulle pagine del PDF,
-  - le immagini dentro i dati del modulo XFA (qui ci sono i fotogrammi ecografici),
-  - i file allegati dentro il PDF, con ricerca anche dentro i PDF allegati.
-- Lo strumento salta le immagini doppie con un controllo del contenuto (hash).
+- **Privacy garantita dall'architettura**: è una pagina statica, senza server, senza upload e senza tracciamento. I file non lasciano mai il tuo browser.
+- Decifra il PDF direttamente nel browser (AES-128 con la password vuota standard).
+- Cerca le immagini su tre livelli:
+  - quelle disegnate sulle pagine del PDF,
+  - quelle nei dati del modulo XFA (è qui che si trovano i fotogrammi ecografici),
+  - quelle nei file allegati al PDF, ispezionando ricorsivamente anche gli eventuali PDF allegati.
+- Scarta automaticamente i duplicati confrontando il contenuto (hash).
 
-## Uso
+## Come si usa
 
-Apri **https://fernetmatt.github.io/immagini-ecografia-acrobat-ulss9-scaligera/** e trascina il tuo referto PDF sulla pagina.
+Apri **https://fernetmatt.github.io/immagini-ecografia-acrobat-ulss9-scaligera/** e trascina il tuo referto sulla pagina.
 
-Uso senza internet: scarica `lightbox.html` (un solo file completo) e aprilo con un doppio clic. Non serve un server. Non serve una connessione.
+Per usarlo offline: scarica `lightbox.html` (un unico file autosufficiente) e aprilo con un doppio clic. Non servono né un server né una connessione a internet.
 
 ## Sviluppo
 
-- `index.html` + `app.js` + `core.js` + `vendor/` sono il codice sorgente. GitHub Pages li serve direttamente.
-- `node build.mjs` genera di nuovo `lightbox.html`, il file singolo per l'uso senza internet.
+- Il sorgente è composto da `index.html`, `app.js`, `core.js` e `vendor/`; GitHub Pages li serve così come sono.
+- `node build.mjs` rigenera `lightbox.html`, la versione a file singolo per l'uso offline.
 
 ## Dettagli tecnici
 
-- La pagina include [Mozilla pdf.js](https://mozilla.github.io/pdf.js/) per le immagini di pagina, gli allegati e le password.
-- Un piccolo motore separato (`core.js`) legge il PDF in modo diretto: decifratura standard (RC4, AES-128, AES-256, con password vuota o inserita), decompressione FlateDecode con `DecompressionStream`, poi una scansione base64 dei flussi di testo per trovare le immagini XFA.
-- Tutto è JavaScript lato client.
+- La pagina incorpora [Mozilla pdf.js](https://mozilla.github.io/pdf.js/) per le immagini di pagina, gli allegati e la gestione delle password.
+- Un piccolo motore dedicato (`core.js`) analizza il PDF a basso livello: decifratura con il security handler standard (RC4, AES-128, AES-256, con password vuota o fornita dall'utente), decompressione FlateDecode tramite `DecompressionStream` e infine una scansione dei flussi di testo alla ricerca di blocchi base64 che contengono le immagini XFA.
+- Tutto gira in JavaScript lato client.
 
 ## Licenza
 
-Il codice di questo repository è con licenza MIT. Il pdf.js incluso è © Mozilla Foundation, licenza Apache 2.0 (le intestazioni di licenza restano nei file inclusi).
+Il codice di questo repository è rilasciato con licenza MIT. La copia di pdf.js inclusa è © Mozilla Foundation, con licenza Apache 2.0 (le intestazioni originali sono conservate nei file).
 
-Il logo Regione del Veneto / ULSS 9 Scaligera appartiene al suo proprietario. Questo è uno strumento indipendente. Non è un prodotto ufficiale della Regione del Veneto o della ULSS 9 Scaligera.
+Il logo Regione del Veneto / ULSS 9 Scaligera appartiene al rispettivo proprietario. Questo è uno strumento indipendente e non è un prodotto ufficiale della Regione del Veneto né della ULSS 9 Scaligera.
