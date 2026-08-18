@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="it">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -287,10 +287,10 @@
 </header>
 
 <main>
-  <div id="dropzone" role="button" tabindex="0" aria-label="Select PDF files">
-    <div class="dz-main">Drop PDF files here, or click to select them.</div>
-    <div class="dz-sub">The tool finds page images, XFA form images, and images in attached files.</div>
-    <div class="dz-priv"><b>local only</b> — the tool runs in your browser. Your files stay on your computer.</div>
+  <div id="dropzone" role="button" tabindex="0" aria-label="Seleziona file PDF">
+    <div class="dz-main">Trascina qui i referti PDF, oppure clicca per selezionarli.</div>
+    <div class="dz-sub">Lo strumento trova le immagini nelle pagine, nei dati del modulo XFA e nei file allegati.</div>
+    <div class="dz-priv"><b>solo in locale</b> — lo strumento gira nel tuo browser. I tuoi file non lasciano il tuo computer.</div>
   </div>
   <input type="file" id="fileinput" accept=".pdf,application/pdf" multiple class="visually-hidden">
 
@@ -298,18 +298,18 @@
 
   <div id="summarybar">
     <div id="summary"></div>
-    <button id="saveall">Save all images</button>
+    <button id="saveall">Salva tutte le immagini</button>
   </div>
 
   <div id="sources"></div>
 </main>
 
-<div id="modal" role="dialog" aria-modal="true" aria-label="Image viewer">
+<div id="modal" role="dialog" aria-modal="true" aria-label="Visualizzatore immagini">
   <img id="modal-img" alt="">
   <div class="modal-bar">
     <span id="modal-meta"></span>
-    <button id="modal-save">Save image</button>
-    <button class="ghost" id="modal-close">Close</button>
+    <button id="modal-save">Salva immagine</button>
+    <button class="ghost" id="modal-close">Chiudi</button>
   </div>
 </div>
 <script src="core.js"></script>

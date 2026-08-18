@@ -539,7 +539,7 @@
     let enc = parseEncrypt(bin, objByNum);
     let key = null;
     if (enc && enc.unsupported) {
-      result.notes.push('Unsupported encryption: ' + enc.unsupported);
+      result.notes.push('Cifratura non supportata: ' + enc.unsupported);
       enc = null;
     }
     if (enc) {

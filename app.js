@@ -46,8 +46,8 @@
     const bar = $('summarybar');
     if (!state.items.length) { bar.classList.remove('show'); return; }
     bar.classList.add('show');
-    let s = state.items.length + (state.items.length === 1 ? ' image' : ' images');
-    if (state.totalDupes) s += ' · ' + state.totalDupes + ' duplicates skipped';
+    let s = state.items.length + (state.items.length === 1 ? ' immagine' : ' immagini');
+    if (state.totalDupes) s += ' · ' + state.totalDupes + ' duplicati scartati';
     $('summary').textContent = s;
   }
   function refreshSaveUI() {
@@ -57,15 +57,15 @@
       b.style.display = usable ? '' : 'none';
     });
     if (!usable && state.items.length) {
-      status('Saving is not available in this view. Open the artifact on claude.ai to save images.');
+      status('Il salvataggio non è disponibile in questa vista.');
     }
   }
 
   const BADGE = {
-    page: { cls: 'page', label: 'PAGE', title: 'Image drawn on a PDF page' },
-    xfa: { cls: 'xfa', label: 'FORM', title: 'Image stored in XFA form data' },
-    'embedded-file': { cls: 'file', label: 'FILE', title: 'Image attached as a file' },
-    attachment: { cls: 'file', label: 'FILE', title: 'Image attached as a file' },
+    page: { cls: 'page', label: 'PAGINA', title: 'Immagine disegnata su una pagina del PDF' },
+    xfa: { cls: 'xfa', label: 'MODULO', title: 'Immagine salvata nei dati del modulo XFA' },
+    'embedded-file': { cls: 'file', label: 'FILE', title: 'Immagine allegata come file' },
+    attachment: { cls: 'file', label: 'FILE', title: 'Immagine allegata come file' },
   };
 
   function makeSourceSection(label) {
@@ -86,8 +86,8 @@
       dupes: 0,
       label,
       update() {
-        const parts = [this.count + (this.count === 1 ? ' image' : ' images')];
-        if (this.dupes) parts.push(this.dupes + ' dup');
+        const parts = [this.count + (this.count === 1 ? ' immagine' : ' immagini')];
+        if (this.dupes) parts.push(this.dupes + ' dupl.');
         this.meta.textContent = parts.join(' · ');
       },
       note(msg) {
@@ -117,12 +117,12 @@
     const badge = BADGE[origin] || BADGE.page;
     const viewable = ['jpg', 'png', 'gif', 'webp', 'bmp'].includes(ext);
     tile.innerHTML =
-      '<button class="thumb" title="View full size">' +
-      (viewable ? '<img loading="lazy" alt="">' : '<span class="noview">' + ext.toUpperCase() + ' — no preview</span>') +
+      '<button class="thumb" title="Vedi a dimensione intera">' +
+      (viewable ? '<img loading="lazy" alt="">' : '<span class="noview">' + ext.toUpperCase() + ' — nessuna anteprima</span>') +
       '</button>' +
       '<div class="tile-info"><div class="tile-data">' +
       '<div class="fname"></div><div class="dims"></div></div>' +
-      '<button class="tile-save" title="Save this image">Save</button></div>';
+      '<button class="tile-save" title="Salva questa immagine">Salva</button></div>';
     tile.querySelector('.fname').textContent = item.filename;
     const dims = tile.querySelector('.dims');
     const badgeEl = document.createElement('span');
@@ -175,7 +175,7 @@
       const payload = await toSavable(item);
       if (downloads) {
         await downloads.save(payload);
-        status('Saved ' + payload.filename);
+        status('Salvato: ' + payload.filename);
       } else if (canDownloadFallback) {
         const a = document.createElement('a');
         a.href = URL.createObjectURL(new Blob([payload.data], { type: item.mime }));
@@ -185,8 +185,8 @@
       }
       return true;
     } catch (e) {
-      if (e && e.code === 'declined') status('Save cancelled.');
-      else status('Save failed: ' + (e.message || e));
+      if (e && e.code === 'declined') status('Salvataggio annullato.');
+      else status('Salvataggio non riuscito: ' + (e.message || e));
       return e && e.code === 'rate_limited' ? 'retry' : false;
     } finally {
       if (btn) btn.disabled = false;
@@ -198,15 +198,15 @@
     btn.disabled = true;
     try {
       for (let i = 0; i < state.items.length; i++) {
-        status('Saving image ' + (i + 1) + ' of ' + state.items.length + '…', true);
+        status('Salvataggio immagine ' + (i + 1) + ' di ' + state.items.length + '…', true);
         let r = await saveItem(state.items[i]);
         if (r === 'retry') {
           await new Promise(res => setTimeout(res, 2000));
           r = await saveItem(state.items[i]);
         }
-        if (r !== true) { status('Stopped. Saved ' + i + ' of ' + state.items.length + ' images.'); return; }
+        if (r !== true) { status('Interrotto. Salvate ' + i + ' immagini su ' + state.items.length + '.'); return; }
       }
-      status('Saved all ' + state.items.length + ' images.');
+      status('Salvate tutte le ' + state.items.length + ' immagini.');
     } finally { btn.disabled = false; }
   });
 
@@ -262,12 +262,12 @@
       }).promise;
     } catch (e) {
       if (e && e.name === 'PasswordException') return { needsPassword: true };
-      src.note('Page reader error: ' + (e.message || e));
+      src.note('Errore di lettura delle pagine: ' + (e.message || e));
       return {};
     }
     const seen = new Set();
     for (let p = 1; p <= doc.numPages; p++) {
-      status('Reading ' + src.label + ' — page ' + p + ' of ' + doc.numPages + '…', true);
+      status('Lettura di ' + src.label + ' — pagina ' + p + ' di ' + doc.numPages + '…', true);
       try {
         const page = await doc.getPage(p);
         const ops = await page.getOperatorList();
@@ -301,7 +301,7 @@
         }
         page.cleanup();
       } catch (e) {
-        src.note('Page ' + p + ' error: ' + (e.message || e));
+        src.note('Errore a pagina ' + p + ': ' + (e.message || e));
       }
     }
     // attachments
@@ -331,7 +331,7 @@
     if (state.pdfHashes.has(pdfHash)) {
       if (depth === 0) {
         const dup = makeSourceSection(label);
-        dup.note('Skipped: this file was already processed (same content).');
+        dup.note('Saltato: questo file è già stato elaborato (contenuto identico).');
       }
       return;
     }
@@ -344,27 +344,27 @@
     const a = await pdfjsPass(src, bytes, password, depth);
 
     // Engine B: raw scan — XFA form images + embedded files + decryption
-    status('Deep scan of ' + label + '…', true);
+    status('Analisi approfondita di ' + label + '…', true);
     let b = { images: [], embedded: [], needsPassword: false, notes: [] };
     try {
       b = await core.rawScan(bytes, { password });
     } catch (e) {
-      src.note('Deep scan error: ' + (e.message || e));
+      src.note("Errore nell'analisi approfondita: " + (e.message || e));
     }
     for (const im of b.images) {
       await addItem(src, im.bytes, im.ext, im.mime, im.origin, 0, 0);
     }
     for (const n of b.notes || []) src.note(n);
     for (const [i, emb] of (b.embedded || []).entries()) {
-      await processPdf(emb.bytes, label + ' › embedded file ' + (i + 1), depth + 1, password);
+      await processPdf(emb.bytes, label + ' › file incorporato ' + (i + 1), depth + 1, password);
     }
 
     if ((a.needsPassword || b.needsPassword) && src.count === 0) {
-      src.note('This file is protected. Enter the password, then process it again.');
+      src.note('Questo file è protetto. Inserisci la password e riprova.');
       const row = document.createElement('div');
       row.className = 'pwd-row';
-      row.innerHTML = '<input type="password" placeholder="password" aria-label="PDF password">' +
-        '<button>Unlock</button>';
+      row.innerHTML = '<input type="password" placeholder="password" aria-label="Password del PDF">' +
+        '<button>Sblocca</button>';
       src.notes.appendChild(row);
       row.querySelector('button').addEventListener('click', async () => {
         const pwd = row.querySelector('input').value;
@@ -374,10 +374,10 @@
         state.busy = true;
         await processPdf(bytes, label, depth, pwd);
         state.busy = false;
-        status('Done.');
+        status('Fatto.');
       });
     } else if (src.count === 0 && src.dupes === 0) {
-      src.note('No images found in this file.');
+      src.note('Nessuna immagine trovata in questo file.');
     }
     src.update();
   }
@@ -390,8 +390,8 @@
     state.busy = true;
     try {
       for (const f of pdfs) {
-        if (f.size > 200 * 1048576) { status('Skipped ' + f.name + ': larger than 200 MB.'); continue; }
-        status('Reading ' + f.name + '…', true);
+        if (f.size > 200 * 1048576) { status('Saltato ' + f.name + ': supera i 200 MB.'); continue; }
+        status('Lettura di ' + f.name + '…', true);
         const bytes = new Uint8Array(await f.arrayBuffer());
         if (!core.isPdf(bytes)) {
           const magic = core.imageMagic(bytes);
@@ -399,17 +399,17 @@
             const src = makeSourceSection(f.name);
             await addItem(src, bytes, magic.ext, magic.mime, 'attachment', 0, 0);
           } else {
-            status('Skipped ' + f.name + ': not a PDF file.');
+            status('Saltato ' + f.name + ': non è un file PDF.');
           }
           continue;
         }
         await processPdf(bytes, f.name, 0, undefined);
       }
       status(state.items.length
-        ? 'Done. ' + state.items.length + ' images ready.'
-        : 'Done. No images found.');
+        ? 'Fatto. ' + state.items.length + ' immagini pronte.'
+        : 'Fatto. Nessuna immagine trovata.');
     } catch (e) {
-      status('Error: ' + (e.message || e));
+      status('Errore: ' + (e.message || e));
     } finally {
       state.busy = false;
       refreshSummary();
