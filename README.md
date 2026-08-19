@@ -20,6 +20,16 @@ Apri la pagina, trascina il referto PDF e lo strumento tira fuori tutte le immag
   - quelle nei file allegati al PDF, ispezionando ricorsivamente anche gli eventuali PDF allegati.
 - Scarta automaticamente i duplicati confrontando il contenuto (hash).
 
+## Screenshot
+
+La griglia con le immagini estratte dal referto:
+
+<img src="assets/screenshot-griglia.jpg" alt="Griglia delle immagini ecografiche estratte, con nome file, dimensioni e pulsante Salva per ciascuna" width="800">
+
+La vista a schermo intero di una singola immagine:
+
+<img src="assets/screenshot-lightbox.jpg" alt="Vista a schermo intero di un'immagine ecografica, con i pulsanti Salva immagine e Chiudi" width="800">
+
 ## Come si usa
 
 Apri **https://fernetmatt.github.io/immagini-ecografia-acrobat-ulss9-scaligera/** e trascina il tuo referto sulla pagina.
